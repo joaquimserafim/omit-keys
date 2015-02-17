@@ -1,6 +1,6 @@
 {
   "name": "omit.keys",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Return a copy of the object without the blacklisted properties",
   "main": "index.js",
   "scripts": {

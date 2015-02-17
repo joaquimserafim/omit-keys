@@ -10,11 +10,10 @@ function omit(obj, list, context) {
   }
 
   Object.keys(obj)
-    .filter(function(key) {
-      return list.indexOf(key) === -1;
-    }, context)
     .forEach(function(key) {
-      result[key] = obj[key];
+      if (list.indexOf(key) === -1) {
+        result[key] = obj[key];
+      }
     }, context);
 
   return result;
