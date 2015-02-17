@@ -8,7 +8,7 @@ Return a copy of the object without the blacklisted properties
 
 ## API
 
-#### omit(object:jsObject, list_of_keys:(array || string)[, *this* context])
+omit(object:*JSObject*, list_of_keys:*array || string*[, context:*this*])
 
 ## Usage
 

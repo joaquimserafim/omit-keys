@@ -19,7 +19,7 @@ test('same test put use a string to filter with one key', function(assert) {
   var newObj = pick(obj, 'description');
   assert.deepEqual(typeof newObj, 'object');
   assert.deepEqual(newObj.description, undefined);
-   assert.equal(newObj.name, obj.name);
-    assert.equal(newObj.version, obj.version);
+  assert.equal(newObj.name, obj.name);
+  assert.equal(newObj.version, obj.version);
   assert.end();
 });
