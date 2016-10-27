@@ -1,4 +1,4 @@
-/*
+  /*
 eslint
 padded-blocks: ["error", {"classes": "always"}]
 max-len: ["error", 80]
@@ -6,28 +6,54 @@ max-len: ["error", 80]
 'use strict'
 
 var test = require('tape')
-var pick = require('./')
+var omit = require('./')
 
-test('return a copy of the object only containing the specified properties',
-  (assert) => {
-    var obj = require('./package.json')
-    var newObj = pick(obj, ['version', 'name'])
-    assert.deepEqual(typeof newObj, 'object')
-    assert.deepEqual(newObj.version, undefined)
-    assert.deepEqual(newObj.name, undefined)
-    assert.equal(newObj.description, obj.description)
-    assert.end()
-  }
-)
+test('omit.keys', (assert) => {
 
-test('the same test but uses a string to filter with one key',
-  (assert) => {
-    var obj = require('./package.json')
-    var newObj = pick(obj, 'description')
-    assert.deepEqual(typeof newObj, 'object')
-    assert.deepEqual(newObj.description, undefined)
-    assert.equal(newObj.name, obj.name)
-    assert.equal(newObj.version, obj.version)
-    assert.end()
+  const testObj = {
+    a: 1,
+    b: 2,
+    c: 3
   }
-)
+
+  assert.deepEqual(
+    omit('not an object'),
+    null,
+    'should return `null` when the object is not a valid JS object'
+  )
+
+  assert.deepEqual(
+    omit(testObj),
+    testObj,
+    'should return the intact object when the omitting list is empty ' +
+    'or not a valid one'
+  )
+
+  assert.deepEqual(
+    omit(testObj, 'a', 'b'),
+    {c: 3},
+    'omitting `a, b` should return the prop `c`'
+  )
+
+  assert.deepEqual(
+    omit(testObj, 'a'),
+    {b: 2, c: 3},
+    'omitting `a` should return the props `b` and `c`'
+  )
+
+  assert.deepEqual(
+    omit(testObj, ['a', 'b']),
+    {c: 3},
+    'omitting `[a, c]` should return the prop `b`'
+  )
+
+  const fn = () => {}
+
+  assert.deepEqual(
+    omit({fn: fn, data: ''}, 'data'),
+    {fn: fn},
+    'should work with objects with functions'
+  )
+
+  assert.end()
+})

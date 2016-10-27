@@ -10,16 +10,16 @@ Returns a copy of the object without the blacklisted properties
 
 ### api
 
-omit(object:*JSObject*, list_of_keys:*array || string*[, context:*this*])
+omit(object:*JSObject*, list_of_keys_to_omit:*an array with 'strings' || a list of 'strings'*)
 
 ### example
 
-```js
+```jss
 var omit = require('omit.keys')
 
 // example 1
 var package = require('./package.json')
-var filter = omit(package, ['version', 'name'])
+var filter = omit(package, 'version', 'name')
 // filter should have all the properties from the package.json file
 // without the properties "version" & "name"
 
