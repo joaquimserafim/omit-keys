@@ -1,41 +1,29 @@
 /*
 eslint
+no-multi-spaces: ["error", {exceptions: {"VariableDeclarator": true}}]
 padded-blocks: ["error", {"classes": "always"}]
 max-len: ["error", 80]
 */
 'use strict'
 
+const isObject = require('is.object')
+
 module.exports = omit
 
-function omit (obj, ...args) {
-
-  if (isNotObject(obj)) {
-    return null
+function omit (obj, ...keys) {
+  if (!isObject(obj)) {
+    return {}
   }
 
-  if (!Array.isArray(args) || !args.length) {
+  if (!Array.isArray(keys) || !keys.length) {
     return obj
   }
 
-  return procList(obj, getList(args))
-}
-
-function procList (obj, list, context) {
-  let result = {}
+  const res = {}
 
   for (let key in obj) {
-    if (list.indexOf(key) === -1) {
-      result[key] = obj[key]
-    }
+    keys.indexOf(key) === -1 && (res[key] = obj[key])
   }
 
-  return result
-}
-
-function getList (arr) {
-  return arr.length === 1 ? Array.isArray(arr[0]) && arr[0] || arr : arr
-}
-
-function isNotObject (obj) {
-  return Object.prototype.toString.call(obj) !== '[object Object]'
+  return res
 }

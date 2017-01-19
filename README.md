@@ -1,6 +1,6 @@
 # omit.keys
 
-Returns a copy of the object without the blacklisted properties
+Returns a new object without the blacklisted properties
 
 <a href="https://nodei.co/npm/omit.keys/"><img src="https://nodei.co/npm/omit.keys.png?downloads=true"></a>
 
@@ -9,21 +9,22 @@ Returns a copy of the object without the blacklisted properties
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ### api
+`const omit = require('omit.keys')`
 
-omit(object:*JSObject*, list_of_keys_to_omit:*an array with 'strings' || a list of 'strings'*)
+`omit(object, list of strings)`
 
 ### example
 
 ```jss
-var omit = require('omit.keys')
+const omit = require('omit.keys')
 
 // example 1
-var package = require('./package.json')
-var filter = omit(package, 'version', 'name')
-// filter should have all the properties from the package.json file
+const package = require('./package.json')
+const filter = omit(package, 'version', 'name')
+// should have all the properties from the package.json file
 // without the properties "version" & "name"
 
 // example 2
-var value = omit({desc: 'hey', value: 'Hello World'}, 'desc')
+const value = omit({desc: 'hey', value: 'Hello World'}, 'desc')
 // should return {value: 'Hello World'}
 ```

@@ -1,12 +1,14 @@
-  /*
+/*
 eslint
+no-multi-spaces: ["error", {exceptions: {"VariableDeclarator": true}}]
 padded-blocks: ["error", {"classes": "always"}]
 max-len: ["error", 80]
 */
 'use strict'
 
-var test = require('tape')
-var omit = require('./')
+const test = require('tape')
+
+const omit = require('.')
 
 test('omit.keys', (assert) => {
 
@@ -18,8 +20,8 @@ test('omit.keys', (assert) => {
 
   assert.deepEqual(
     omit('not an object'),
-    null,
-    'should return `null` when the object is not a valid JS object'
+    {},
+    'should return `{}` when the object is not a valid JS object'
   )
 
   assert.deepEqual(
@@ -41,18 +43,24 @@ test('omit.keys', (assert) => {
     'omitting `a` should return the props `b` and `c`'
   )
 
-  assert.deepEqual(
-    omit(testObj, ['a', 'b']),
-    {c: 3},
-    'omitting `[a, c]` should return the prop `b`'
-  )
-
   const fn = () => {}
 
   assert.deepEqual(
     omit({fn: fn, data: ''}, 'data'),
     {fn: fn},
-    'should work with objects with functions'
+    'should work with objects which has functions'
+  )
+
+  function Test () {
+    this.a = 1
+    this.b = 2
+    this.c = 3
+  }
+
+  assert.deepEqual(
+    omit(new Test(), 'a'),
+    {b: 2, c: 3},
+    'should work with Prototypes'
   )
 
   assert.end()
